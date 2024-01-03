@@ -2,6 +2,8 @@ module connectrpc.com/otelconnect
 
 go 1.19
 
+replace connectrpc.com/connect => ../connect-go
+
 require (
 	connectrpc.com/connect v1.11.1
 	github.com/google/go-cmp v0.5.9
@@ -11,7 +13,7 @@ require (
 	go.opentelemetry.io/otel/sdk v1.19.0
 	go.opentelemetry.io/otel/sdk/metric v1.19.0
 	go.opentelemetry.io/otel/trace v1.19.0
-	google.golang.org/protobuf v1.31.0
+	google.golang.org/protobuf v1.32.0
 )
 
 require (

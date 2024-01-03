@@ -40,6 +40,7 @@ const (
 	unitDimensionless   = "1"
 	unitBytes           = "By"
 	unitMilliseconds    = "ms"
+	unitSeconds         = "s"
 )
 
 type instruments struct {

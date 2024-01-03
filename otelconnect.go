@@ -19,6 +19,7 @@ import (
 	"time"
 
 	connect "connectrpc.com/connect"
+	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/metric"
 	"go.opentelemetry.io/otel/propagation"
 	"go.opentelemetry.io/otel/trace"
@@ -46,4 +47,22 @@ type config struct {
 	requestHeaderKeys  []string
 	responseHeaderKeys []string
 	omitTraceEvents    bool
+}
+
+func makeConfig(options []Option) config {
+	cfg := config{
+		now: time.Now,
+		tracer: otel.GetTracerProvider().Tracer(
+			instrumentationName,
+			trace.WithInstrumentationVersion(semanticVersion),
+		),
+		propagator: otel.GetTextMapPropagator(),
+		meter: otel.GetMeterProvider().Meter(
+			instrumentationName,
+			metric.WithInstrumentationVersion(semanticVersion)),
+	}
+	for _, option := range options {
+		option.apply(&cfg)
+	}
+	return cfg
 }
